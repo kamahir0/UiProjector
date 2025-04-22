@@ -1,0 +1,12 @@
+{
+    "name": "com.kamahir0.ui-projector",
+    "version": "0.1.0",
+    "displayName": "Ui Projector",
+    "description": "Project world-space objects to screen-space and attach UI that follows them in Unity.",
+    "unity": "2022.3",
+    "dependencies": {},
+    "author": {
+        "name": "kamahir0",
+        "url": "https://x.com/kamahir0"
+    }
+}
