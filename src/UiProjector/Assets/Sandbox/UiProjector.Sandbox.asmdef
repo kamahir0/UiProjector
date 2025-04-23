@@ -1,0 +1,16 @@
+{
+    "name": "UiProjector.Sandbox",
+    "rootNamespace": "UiProjector.Sandbox",
+    "references": [
+        "GUID:603fd6f4d1ff51f4aab339c3c9d081b0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
