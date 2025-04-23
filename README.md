@@ -9,6 +9,31 @@ UiProjectorは、ゲームによくある「3Dオブジェクトに追従するU
 
 ![uiProjector_1](https://github.com/user-attachments/assets/c0a3413d-5dd8-407c-99ac-01f327f196c0)
 
+## セットアップ
+### 要件
+
+* Unity 2022.3 以上
+
+### インストール
+
+1. Window > Package ManagerからPackage Managerを開く
+2. 「+」ボタン > Add package from git URL
+3. 以下のURLを入力する
+
+```
+https://github.com/kamahir0/UiProjector.git?path=src/UiProjector/Assets/UiProjector
+```
+
+またはPackages/manifest.jsonを開き、dependenciesブロックに以下を追記
+
+```json
+{
+    "dependencies": {
+        "com.kamahir0.ui-projector": "https://github.com/kamahir0/UiProjector.git?path=src/UiProjector/Assets/UiProjector"
+    }
+}
+```
+
 ## 最も簡単な使い方
 ```
 // UIと追従対象にするTransformを渡す
