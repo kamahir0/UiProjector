@@ -13,6 +13,8 @@ namespace UiProjector
         /// <summary>
         /// Canvasを作成する
         /// </summary>
+        /// <param name="original">複製元のCanvas</param>
+        /// <param name="camera">追従オブジェクトやUIを描画するCamera</param>
         public static CanvasHandle CreateCanvas(Canvas original, Camera camera)
         {
             var id = ProjectionUiManager.Instance.CreateCanvas(original, camera);
@@ -44,7 +46,7 @@ namespace UiProjector
         /// <param name="releaseAction">UiHandle.Release実行時の処理（未指定ならDestroy）</param>
         public static UiHandle AddUi(RectTransform ui, Transform target, Vector3 worldSpaceOffset, Vector2 screenSpaceOffset, IProjectionReviser reviser = null, Action<RectTransform> releaseAction = null)
         {
-            return DefaultCanvasHandle.Add(ui, target, worldSpaceOffset, screenSpaceOffset, reviser, releaseAction);
+            return DefaultCanvasHandle.AddUi(ui, target, worldSpaceOffset, screenSpaceOffset, reviser, releaseAction);
         }
         /// <summary> UIを追加する。デフォルトCanvasを使用する </summary> <param name="ui">追従させるUIのRectTransform</param> <param name="target">追従対象のTransform</param> <param name="worldSpaceOffset">ワールド空間でのオフセット</param> <param name="reviser">UIの位置を修正するProjectionReviser</param> <param name="releaseAction">UiHandle.Release実行時の処理（未指定ならDestroy）</param>
         public static UiHandle AddUi(RectTransform ui, Transform target, Vector3 worldSpaceOffset, IProjectionReviser reviser = null, Action<RectTransform> releaseAction = null) => AddUi(ui, target, worldSpaceOffset, Vector2.zero, reviser, releaseAction);
@@ -60,7 +62,7 @@ namespace UiProjector
         /// </summary>
         public static void ClearCanvas()
         {
-            DefaultCanvasHandle.Clear();
+            DefaultCanvasHandle.ClearCanvas();
         }
     }
 }

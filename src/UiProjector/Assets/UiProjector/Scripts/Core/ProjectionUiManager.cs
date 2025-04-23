@@ -136,6 +136,7 @@ namespace UiProjector.Internal
         {
             var canvas = _canvasMap[canvasId];
             _canvasMap.Remove(canvasId);
+            canvas.Clear();
             Object.Destroy(canvas.gameObject);
         }
 
