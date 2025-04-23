@@ -7,8 +7,9 @@ A Unity library for projecting world-space objects onto the screen and attaching
 
 UiProjectorは、ゲームによくある「3Dオブジェクトに追従するUI」を簡単に実装するための汎用的なシステムです。
 
-## 使用方法
-### 最も簡単な使い方
+![uiProjector_1](https://github.com/user-attachments/assets/c0a3413d-5dd8-407c-99ac-01f327f196c0)
+
+## 最も簡単な使い方
 ```
 // UIと追従対象にするTransformを渡す
 // UiHandleという構造体が返される
@@ -48,7 +49,7 @@ ProjectionUi.AddUi(ui, target, releaseAction = _pool.Release);
 
 このようにすることで、UiHandle.Releaseを呼び出すとUIがオブジェクトプールへと返却されるようになります。
 
-### Canvasを分ける
+## Canvasを分ける
 前段の最も簡単な使い方を読んでいて「UIはどのCanvasに配置されるのか？」と疑問を持たれたかもしれません。
 UiProjectorはゲーム開始時に『デフォルトCanvas』をDontDestroyOnLoadに生成し、先ほどのようなCanvasを指定しない簡単な呼び出し方ではデフォルトCanvasが使用されます。
 
@@ -74,7 +75,7 @@ canvasHandle.Dispose();
 CanvasHandle構造体にはAddUiメソッドがあります。前段で紹介した`ProjectionUi.AddUi`と使い方は全く同じです。
 IDisposableを実装しており、DisposeすることでCanvasを破棄できます。また、このときCanvasを破棄する直前にAddUiした全てのUIをReleaseします。
 
-### UIを画面内に収める
+## UIを画面内に収める
 ゲームによくある「3Dオブジェクトに追従するUI」において、追従対象が画面外へと消えてしまったときのUI側の挙動はケースバイケースです。
 そのままUIも一緒に消えてしまうこともある一方で、UIだけは画面内に収まり続けるみたいなケースも多いです。
 
@@ -88,13 +89,35 @@ ScreenReviser _screenReviser = new();
 canvasHandle.AddUi(ui, target, _screenReviser);
 ```
 
+![uiProjector_2](https://github.com/user-attachments/assets/512a02ba-a4bb-4ffe-b426-3c402a32e284)
+
 AddUiメソッドの引数のうちの一つ`IProjectionReviser reviser`に、`IProjectionReviser`インターフェースを実装したクラスのインスタンスを渡します。
 `IProjectionReviser`インターフェースは、UIの位置を修正するためのインターフェースです。
 
 UiProjectorには標準で以下のクラスが用意されています
 - **ScreenReviser**
-  - 
+  - スクリーン内にUIを収めてくれます
+  - コンストラクタで4辺のマージンを指定することで、さらに収める範囲を狭めることができます
 - **SafeAreaReviser**
-  - 
+  - セーフエリア内にUIを収めてくれます
+  - コンストラクタで4辺のマージンを指定することで、さらに収める範囲を狭めることができます
 - **RectReviser**
-  - 
+  - コンストラクタで引き受けたRectの範囲内にUIを収めてくれます
+
+また、`IProjectionReviser`を実装したクラスを自作することでここの挙動を拡張することが可能です。
+
+```
+/// <summary>
+/// 投影処理で導かれたUIを位置に修正をかけるためのインターフェース
+/// </summary>
+public interface IProjectionReviser
+{
+    /// <summary>
+    /// 投影処理でUIの位置が導かれたときに呼び出し、UIの位置を修正する
+    /// </summary>
+    void Revise(ref Vector3 screenPosition);
+}
+```
+
+Reviseメソッドの引数は見ての通りスクリーン座標です。refが付いているので、この値を書き変える処理を独自に実装することで拡張が可能です。
+例えば、UIの位置を楕円形に収めるような処理とか。
