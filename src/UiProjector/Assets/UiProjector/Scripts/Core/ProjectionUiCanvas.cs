@@ -31,6 +31,7 @@ namespace UiProjector.Internal
         private Canvas _canvas;
         private Camera _camera;
         private Dictionary<UiId, Binding> _bindingMap = new();
+        private Stack<UiId> _releaseStack = new();
         private IProjectionStrategy _projector;
 #if UNITY_EDITOR
         private RenderMode _lastRenderMode;
@@ -74,9 +75,24 @@ namespace UiProjector.Internal
 #endif
         private void LateUpdate()
         {
-            foreach (var binding in _bindingMap.Values)
+            // UIの位置を更新
+            foreach (var (uiId, binding) in _bindingMap)
             {
-                _projector.Project(binding);
+                try
+                {
+                    _projector.Project(binding);
+                }
+                catch
+                {
+                    // ターゲットが破棄されるなどして例外が発生したら解放を予約する
+                    _releaseStack.Push(uiId);
+                }
+            }
+
+            // 予約されたUI解放を実行
+            while (_releaseStack.Count > 0)
+            {
+                ReleaseUi(_releaseStack.Pop());
             }
         }
 
