@@ -16,6 +16,13 @@ namespace UiProjector
             Id = id;
         }
 
+        /// <summary> CanvasのSortingOrder </summary>
+        public int SortingOrder
+        {
+            get => ProjectionUiManager.Instance.GetSortingOrder(Id);
+            set => ProjectionUiManager.Instance.SetSortingOrder(Id, value);
+        }
+
         /// <summary> 現在もCanvasの存在が有効であるか </summary>
         public bool IsValid => ProjectionUiManager.Instance.IsValidCanvas(Id);
 

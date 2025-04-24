@@ -158,5 +158,23 @@ namespace UiProjector.Internal
             var canvas = _canvasMap[canvasId];
             return canvas.IsValidUi(uiId);
         }
+
+        /// <summary>
+        /// CanvasのSortingOrderを取得する
+        /// </summary>
+        public int GetSortingOrder(CanvasId canvasId)
+        {
+            var canvas = _canvasMap[canvasId];
+            return canvas.SortingOrder;
+        }
+
+        /// <summary>
+        /// CanvasのSortingOrderを変更する
+        /// </summary>
+        public void SetSortingOrder(CanvasId canvasId, int order)
+        {
+            var canvas = _canvasMap[canvasId];
+            canvas.SortingOrder = order;
+        }
     }
 }

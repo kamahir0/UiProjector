@@ -37,6 +37,13 @@ namespace UiProjector.Internal
         private RenderMode _lastRenderMode;
 #endif
 
+        /// <summary> CanvasのSortingOrder </summary>
+        public int SortingOrder
+        {
+            get => _canvas.sortingOrder;
+            set => _canvas.sortingOrder = value;
+        }
+
         /// <summary>
         /// 初期化
         /// </summary>
