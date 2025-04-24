@@ -97,6 +97,8 @@ canvasHandle.Dispose();
 第一引数`Canvas original`は作成するCanvasの複製元になります。一応Prefabを渡す想定で、作成するCanvasのパラメータはそのPrefabで予め設定しておいてもらうのが自然かと思います。
 第二引数`Camera camera`はUIを描画するカメラを渡します。CanvasのRenderModeが`Overlay`であればメインカメラをそのまま。`CameraSpace`であればUIカメラを渡します。
 
+※ CanvasのRenderModeはOverlayかCameraSpaceにのみ対応しています。WorldSpaceを渡すとサポート外として例外を投げます。
+
 CanvasHandle構造体にはAddUiメソッドがあります。前段で紹介した`ProjectionUi.AddUi`と使い方は全く同じです。
 IDisposableを実装しており、DisposeすることでCanvasを破棄できます。また、このときCanvasを破棄する直前にAddUiした全てのUIをReleaseします。
 
